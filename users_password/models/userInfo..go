@@ -11,4 +11,6 @@ type UserInfo struct {
     ActivateAccount *bool `json:"activate_account,omitempty"`
     AppSource     string  `json:"app_source"`
     TwoFactorCode *int    `json:"two_factor_code,omitempty"`
+	SmarticoUserId  string  `json:"smartico_user_id,omitempty"`
+    
 }
