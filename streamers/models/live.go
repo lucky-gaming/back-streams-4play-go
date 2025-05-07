@@ -20,5 +20,6 @@ type Live struct {
 	StartDate   int64              `json:"startDate" bson:"startDate"` // UNIX timestamp (seconds)
 	EndDate     int64              `json:"endDate" bson:"endDate"`     // UNIX timestamp (seconds)
 	Status      Status             `json:"status" bson:"status"`
-	StreamKey   string             `json:"-" bson:"streamKey"`
+	StreamKey   string 			   `json:"streamKey,omitempty" bson:"streamKey"`
+
 }

@@ -189,8 +189,6 @@ func GetLivesByStatus(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	
-
 	cursor, err := collection.Find(ctx, filter)
 	if err != nil {
 		http.Error(w, "Erro ao buscar lives", http.StatusInternalServerError)
@@ -238,20 +236,26 @@ func CheckLiveAtTimestamp(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	var live models.Live
-	err := collection.FindOne(ctx, filter).Decode(&live)
+	cursor, err := collection.Find(ctx, filter)
 	if err != nil {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(bson.M{"conflict": false})
+		http.Error(w, "Erro ao buscar conflitos", http.StatusInternalServerError)
+		return
+	}
+	defer cursor.Close(ctx)
+
+	var lives []models.Live
+	if err := cursor.All(ctx, &lives); err != nil {
+		http.Error(w, "Erro ao decodificar conflitos", http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(bson.M{
-		"conflict": true,
-		"live":     live,
+		"conflict": len(lives) > 0,
+		"lives":    lives,
 	})
 }
+
 
 
 
