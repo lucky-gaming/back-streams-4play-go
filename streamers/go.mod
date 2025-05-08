@@ -6,6 +6,7 @@ require (
 	github.com/go-chi/chi/v5 v5.2.1 // indirect
 	github.com/go-chi/cors v1.2.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
