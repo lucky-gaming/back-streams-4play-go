@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"time"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -19,6 +20,7 @@ func Connect() {
 		log.Fatal("Erro ao carregar o arquivo .env")
 	}
 	connectString := os.Getenv("MONGO_URL")
+	database := os.Getenv("MONGO_DATABASE")
 	clientOptions := options.Client().ApplyURI(connectString)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -33,7 +35,7 @@ func Connect() {
 		log.Fatal("Mongo não respondeu:", err)
 	}
 
-	DB = client.Database("4play-dev")
+	DB = client.Database(database)
 	log.Println("Mongo conectado")
 }
 
