@@ -3,22 +3,18 @@ package db
 import (
 	"context"
 	"log"
-	"time"
 	"os"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/joho/godotenv"
 )
 
 var MongoClient *mongo.Client
 var DB *mongo.Database
 
 func Connect() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Erro ao carregar o arquivo .env")
-	}
+
 	connectString := os.Getenv("MONGO_URL")
 	database := os.Getenv("MONGO_DATABASE")
 	clientOptions := options.Client().ApplyURI(connectString)
@@ -38,4 +34,3 @@ func Connect() {
 	DB = client.Database(database)
 	log.Println("Mongo conectado")
 }
-

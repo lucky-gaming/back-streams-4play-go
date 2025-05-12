@@ -1,0 +1,20 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
+{
+    "name": "Go",
+    "image": "mcr.microsoft.com/devcontainers/go:1.24",
+    "containerEnv": {
+        "GO111MODULE": "on"
+    },
+    "runArgs": [
+        "-v", "/var/run/docker.sock:/var/run/docker.sock",
+        "--network=host"
+    ],
+    "settings": {
+        "go.gopath": "/go"
+    },
+    "extensions": [
+        "golang.go"
+    ],
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y docker.io && go mod tidy && sudo curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o \"awscliv2.zip\" && unzip awscliv2.zip && sudo ./aws/install && rm -rf aws awscliv2.zip"
+}

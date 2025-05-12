@@ -1,9 +1,11 @@
 package routes
 
 import (
+	"go-api/handlers"
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
-	"go-api/handlers"
 )
 
 func SetupRoutes() *chi.Mux {
@@ -19,6 +21,11 @@ func SetupRoutes() *chi.Mux {
 	}))
 
 	r.Post("/gtm_info", handlers.CreateGtmInfo)
+
+	//Rota de teste para verificar se o servidor está funcionando
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("OK"))
+	})
 
 	return r
 }
